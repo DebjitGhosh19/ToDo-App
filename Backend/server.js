@@ -3,6 +3,7 @@ import cors from 'cors'
 import 'dotenv/config'
 import connectDb from './config/db.js'
 import Router from './routes/userRouter.js'
+import Todorouter from './routes/todoRoutes.js'
 const app=express()
 //mongo
 connectDb()
@@ -14,6 +15,7 @@ app.get('/',(req,res)=>{
     res.status(200).send('Hello World!')
 })
 app.use('/api/v1/user',Router)
+app.use('/api/v1/todo',Todorouter);
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)

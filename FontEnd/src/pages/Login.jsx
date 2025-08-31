@@ -1,39 +1,30 @@
-import React, { useState, } from "react";
-  import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-const navigate = useNavigate();
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      // Handle login logic here
       const response = await axios.post(
         "http://localhost:8080/api/v1/user/login",
         {
-          email: formData.email,
-          password: formData.password,
+          email,
+          password,
         }
       );
 
-      toast.success("Login successful:", response.data);
-      // Redirect or perform any other actions upon successful login
-      // For example, you might want to store the token and redirect the user
+      toast.success("Login successful!");
       localStorage.setItem("token", response.data.token);
-      navigate('/home');
-      
+      localStorage.setItem("userName", response.data.user.username);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      navigate("/home");
     } catch (error) {
       const message = error.response?.data?.message || "Login failed";
       toast.error(message);
@@ -86,8 +77,8 @@ const navigate = useNavigate();
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
                     placeholder="Enter your email"
@@ -111,8 +102,8 @@ const navigate = useNavigate();
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-400 pr-12"
                     placeholder="Enter your password"
