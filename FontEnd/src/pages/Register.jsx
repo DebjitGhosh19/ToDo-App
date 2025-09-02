@@ -15,7 +15,7 @@ const Register = () => {
     // Registration logic here
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/user/register",
+        "https://todo-app-hqvl.onrender.com/api/v1/user/register",
         {
           email,
           password,
