@@ -117,17 +117,14 @@ const Login = () => {
                   </button>
                 </div>
               </div>
-
-              {/* Forgot Password */}
-              <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-600 mt-2">
                 <Link
                   to="/forgot-password"
-                  className="text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                  className="font-medium text-blue-600 hover:text-blue-700 transition-colors"
                 >
-                  Forgot password?
+                  Forgot your password?
                 </Link>
-              </div>
-
+              </p>
               {/* Submit Button */}
               <button
                 type="submit"
@@ -157,6 +154,7 @@ const Login = () => {
                   Sign up for free
                 </Link>
               </p>
+             
             </div>
           </div>
         </div>
